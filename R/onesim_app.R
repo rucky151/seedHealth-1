@@ -145,16 +145,6 @@ onesim_app <- function(pHSinit=0.8, Kx = 100, betax=0.02, wxtnormm=0.8, wxtnorms
 
     server = function(input, output) {
 
-      # for generating truncated normal random variables
-      altrtruncnorm <- function(n,a=0,b=1,meana=0,sda=1){
-        j <- rnorm(n,mean=meana,sd=sda)
-        j[j < a] <- a
-        j[j > b] <- b
-        j
-      }
-      # Weather (wx), vector management (mx), positive selection (zx) and roguing (zx) are stochastic
-      # Each have a mean and associated standard deviation
-
       set.seed(1234)
       #************************************************************
       #############################################################
