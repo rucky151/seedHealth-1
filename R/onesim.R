@@ -174,7 +174,7 @@ onesim <- function(pHSinit=0.8, Kx = 100, betax=0.02, wxtnormm=0.8, wxtnormsd=0.
   }else {
     list(outm=outm,outfin=outfin)
   }
-  #-------------------------------------------------
+  #-------------------------------------------------#
 
 }
 
