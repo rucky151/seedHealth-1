@@ -17,7 +17,7 @@
 #' @importFrom stats median quantile rnorm var
 #' @keywords seed health
 #' @examples
-#' onesim_plot()
+#' multisim_plot()
 #' @export
 #'
 #'
