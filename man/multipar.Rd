@@ -13,35 +13,56 @@ multipar(pHSinit = c(0.2, 0.5, 0.8), Kx = 100, betax = c(0.02, 0.04),
   miY = 0, thetax = c(-0.5, 0, 0.5), Ex = 0.02)
 }
 \arguments{
-\item{pHSinit}{the initial proportion of healthy seed, numeric or numeric vector.}
+\item{pHSinit}{the initial proportion of healthy seed, numeric or numeric
+vector.}
 
-\item{Kx}{the total number of plants, positive interger, numeric or numeric vector.}
+\item{Kx}{the total number of plants, positive interger, numeric or numeric
+vector.}
 
-\item{betax}{the maximum seasonal transmission rate, numeric or numeric vector.}
+\item{betax}{the maximum seasonal transmission rate, numeric or numeric
+vector.}
 
-\item{wxtnormm}{the environmental effect on transmission rate (mean of underlying normal distribution prior to truncation), numeric or numeric vector.}
+\item{wxtnormm}{the environmental effect on transmission rate (mean of
+underlying normal distribution prior to truncation), numeric or numeric
+vector.}
 
-\item{wxtnormsd}{the environmental effect on transmission rate (standard deviation of underlying normal distribution prior to truncation), numeric or numeric vector.}
+\item{wxtnormsd}{the environmental effect on transmission rate (standard
+deviation of underlying normal distribution prior to truncation), numeric
+or numeric vector.}
 
 \item{hx}{the host effect on transmission rate, numeric or numeric vector.}
 
-\item{mxtnormm}{the vector management effect on transmission rate (mean of underlying normal distribution prior to truncation), numeric or numeric vector.}
+\item{mxtnormm}{the vector management effect on transmission rate (mean of
+underlying normal distribution prior to truncation), numeric or numeric
+vector.}
 
-\item{mxtnormsd}{the vector management effect on transmission rate (standard deviation of underlying normal distribution prior to truncation), numeric or numeric vector.}
+\item{mxtnormsd}{the vector management effect on transmission rate (standard
+deviation of underlying normal distribution prior to truncation), numeric
+or numeric vector.}
 
-\item{axtnormm}{the roguing effect in terms of decreased DP (mean of underlying normal distribution prior to truncation), numeric or numeric vector.}
+\item{axtnormm}{the roguing effect in terms of decreased DP (mean of
+underlying normal distribution prior to truncation), numeric or numeric
+vector.}
 
-\item{axtnormsd}{the roguing effect in terms of decreased DP (standard deviation of underlying normal distribution prior to truncation), numeric or numeric vector.}
+\item{axtnormsd}{the roguing effect in terms of decreased DP (standard
+deviation of underlying normal distribution prior to truncation), numeric
+or numeric vector.}
 
 \item{rx}{the reversion rate, numeric or numeric vector.}
 
-\item{zxtnormm}{the proportional selection against diseased plants (mean of underlying normal distribution prior to truncation), numeric or numeric vector.}
+\item{zxtnormm}{the proportional selection against diseased plants (mean of
+underlying normal distribution prior to truncation), numeric or numeric
+vector.}
 
-\item{zxtnormsd}{the proportional selection against diseased plants (standard deviation of underlying normal distribution prior to truncation), numeric or numeric vector.}
+\item{zxtnormsd}{the proportional selection against diseased plants (standard
+deviation of underlying normal distribution prior to truncation), numeric
+or numeric vector.}
 
-\item{gx}{the seed production rate in healthy plants, numeric or numeric vector.}
+\item{gx}{the seed production rate in healthy plants, numeric or numeric
+vector.}
 
-\item{cx}{the proportional seed production rate in diseased plants, numeric or numeric vector.}
+\item{cx}{the proportional seed production rate in diseased plants, numeric
+or numeric vector.}
 
 \item{phix}{the proportion clean seed purchased, numeric or numeric vector.}
 
@@ -49,17 +70,22 @@ multipar(pHSinit = c(0.2, 0.5, 0.8), Kx = 100, betax = c(0.02, 0.04),
 
 \item{nsim}{vector of number of simulations}
 
-\item{HPcut}{the proportion healthy plant number cutoff, numeric or numeric vector.}
+\item{HPcut}{the proportion healthy plant number cutoff, numeric or numeric
+vector.}
 
 \item{pHScut}{the proportion healthy seed cutoff, numeric or numeric vector.}
 
-\item{maY}{the maximum attainable yield, end of season, in the absence of disease, numeric or numeric vector.}
+\item{maY}{the maximum attainable yield, end of season, in the absence of
+disease, numeric or numeric vector.}
 
-\item{miY}{the minimum yield when all plants are diseased (useable yield despite disease), numeric or numeric vector.}
+\item{miY}{the minimum yield when all plants are diseased (useable yield
+despite disease), numeric or numeric vector.}
 
-\item{thetax}{the rate of decline of Yld with increasing disease incidence, numeric or numeric vector.}
+\item{thetax}{the rate of decline of Yld with increasing disease incidence,
+numeric or numeric vector.}
 
-\item{Ex}{the amount of external inoculum around field, numeric or numeric vector.}
+\item{Ex}{the amount of external inoculum around field, numeric or numeric
+vector.}
 }
 \description{
 This function creates a matrix with output for multiple parameter combinations across nseasons
