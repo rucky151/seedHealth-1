@@ -142,7 +142,7 @@ onesim <- function(pHSinit = 0.8, Kx = 100, betax = 0.02, wxtnormm = 0.8,
     # Equation B2
     outm$DS[si] <- max(0, outm$zx[si] * cx * gx * (1 - rx) * outm$DP[si])
     #Equation C1
-    outm$Yld[si]<- ((outm$HP[si] + outm$DP[si]) / (outm$HP[si]+outm$DPbr[si])) * 
+    outm$Yld[si]<- ((outm$HP[si] + outm$DP[si]) / (outm$HP[si] + outm$DPbr[si])) * 
       (miY + (maY - miY) * ((1 - (outm$DP[si] / (outm$DP[si] + outm$HP[si]))) / 
                               ((1 - thetax) + thetax * (1 - (outm$DP[si] / 
                                 (outm$DP[si] + outm$HP[si])))) ^ 2))
@@ -157,7 +157,7 @@ onesim <- function(pHSinit = 0.8, Kx = 100, betax = 0.02, wxtnormm = 0.8,
   outfin <- outm[(nseasons + 1), ]
 
   # Season in which HP first transitions below HPcut*Kx
-  HPtrans <- outm$season[which(outm$HP < HPcut*Kx)][1]
+  HPtrans <- outm$season[which(outm$HP < HPcut * Kx)][1]
   # if HPtrans is NA i.e., HP never less than HPcut, set to max seasons tested
   HPtrans[is.na(HPtrans)] <- nseasons
   # Season in which pHS first transitions below pHScut
