@@ -108,11 +108,9 @@ onesim <- function(pHSinit = 0.8, Kx = 100, betax = 0.02, wxtnormm = 0.8,
 
 
   outm <- as.data.frame(matrix(data = -999, nrow = (nseasons + 1), ncol = 14,
-                               dimnames = list(1 : (nseasons + 1), 
-                                               c('season', 'HP', 'DP', 'HS', 
-                                                 'DS', 'pHS', 'pDS', 'mx', 
-                                                 'zx', 'ax', 'wx', 'Yld', 
-                                                 'YL', 'DPbr'))))
+                               dimnames = list(1 : (nseasons + 1), c('season', 
+                              'HP', 'DP', 'HS', 'DS', 'pHS', 'pDS', 'mx', 'zx',
+                              'ax', 'wx', 'Yld', 'YL', 'DPbr'))))
 
   outm[1,] <- NA # row one gives initial conditions
   outm$season <- 0 : nseasons
@@ -181,7 +179,7 @@ onesim <- function(pHSinit = 0.8, Kx = 100, betax = 0.02, wxtnormm = 0.8,
                                   dimnames = list(c('HPtrans', 'pHStrans', 
                                                     'HPpseas', 'pHSpseas'), '1'))))
 
-  outfin <- cbind(outfin,ptemp)
+  outfin <- cbind(outfin, ptemp)
 
   #-----------------------------------------------
   # warning message
