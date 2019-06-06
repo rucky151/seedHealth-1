@@ -116,7 +116,7 @@ onesim <- function(pHSinit = 0.8, Kx = 100, betax = 0.02, wxtnormm = 0.8,
   outm$season <- 0 : nseasons
 
   # Initial value for state variables
-  outm$pHS[1] <- pHSinit # initial proportion healthy seed (for nseasons=0)
+  outm$pHS[1] <- pHSinit # initial proportion healthy seed (for nseasons = 0)
   outm$pDS[1] <- 1 - pHSinit
 
   # seasons 2 and higher
@@ -128,7 +128,7 @@ onesim <- function(pHSinit = 0.8, Kx = 100, betax = 0.02, wxtnormm = 0.8,
     outm$ax[si] <- ifelse(axtnormsd == 0, axtnormm, (altruncnorm(1, a = 0, b = 1, mean = axtnormm, sd = axtnormsd)))
     outm$zx[si] <- ifelse(zxtnormsd == 0, zxtnormm, (altruncnorm(1, a = 0, b = 1, mean = zxtnormm, sd = zxtnormsd)))
     #Calculating rate of disease transmission
-    tempnewinf<-  betax * outm$wx[si] * hx * outm$mx[si] * 
+    tempnewinf <-  betax * outm$wx[si] * hx * outm$mx[si] * 
       ((Kx * outm$pDS[si - 1]) * (Kx * outm$pHS[si - 1]) + Ex * (Kx * outm$pHS[si - 1]))
     #Equation A1
     outm$HP[si] <- min(max(0, Kx * outm$pHS[si - 1] - tempnewinf), 100)
@@ -211,7 +211,7 @@ onesim <- function(pHSinit = 0.8, Kx = 100, betax = 0.02, wxtnormm = 0.8,
   } else if (Ex < 0) {
     warning(paste('Ex: your input value is', Ex, ', it must be greater than 0'))
   }else {
-    list(outm = outm,outfin = outfin)
+    list(outm = outm, outfin = outfin)
   }
   #-------------------------------------------------#
 
