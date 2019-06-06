@@ -1,9 +1,10 @@
 
-#' Generate truncated random normal variables where values outside range are assigned to range limit
+#' Generate truncated random normal variables where values outside range are
+#' assigned to range limit
 #'
 #' Note that this function is different from the one in the package truncnorm.
 #'
-#' Updated 2018-09-28
+#' Updated 2019-06-06
 
 #' @param n the number of variables to be generated.
 #' @param a the lower limit of range, positive numeric or positive numeric
