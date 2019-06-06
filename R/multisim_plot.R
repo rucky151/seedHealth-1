@@ -23,24 +23,35 @@
 #'
 
 
-multisim_plot <- function(pHSinit=0.8, Kx = 100, betax=0.02, wxtnormm=0.8, wxtnormsd=0.3, hx=1, mxtnormm=1,
-                       mxtnormsd=0.1, axtnormm=1, axtnormsd=0.1, rx=0.1, zxtnormm=1, zxtnormsd= 0.1, gx=4,
-                       cx=0.9, phix=0, nseasons=10, HPcut=0.5, pHScut=0.5, maY=100, miY=0, thetax=0.2,  Ex=0){
+multisim_plot <- function(pHSinit = 0.8, Kx = 100, betax = 0.02, wxtnormm = 0.8, 
+                          wxtnormsd = 0.3, hx = 1, mxtnormm = 1, mxtnormsd = 0.1, 
+                          axtnormm = 1, axtnormsd = 0.1, rx = 0.1, zxtnormm = 1, 
+                          zxtnormsd = 0.1, gx = 4, cx = 0.9, phix = 0, nseasons = 10, 
+                          HPcut = 0.5, pHScut = 0.5, maY = 100, miY = 0, thetax = 0.2,  
+                          Ex = 0){
 
-  out1 <- onesim(pHSinit = pHSinit, Kx = Kx, Ex = Ex, betax = betax, wxtnormm = wxtnormm, hx = hx, mxtnormm = mxtnormm,
-                 axtnormm = axtnormm, gx = gx, zxtnormm = zxtnormm, cx = cx, rx = rx, phix = phix, thetax = thetax,
-                 wxtnormsd = wxtnormsd, mxtnormsd = mxtnormsd, axtnormsd = axtnormsd, zxtnormsd = zxtnormsd,
-                 nseasons = nseasons, HPcut = HPcut, pHScut = pHScut, maY = maY, miY = miY)
+  out1 <- onesim(pHSinit = pHSinit, Kx = Kx, Ex = Ex, betax = betax, 
+                 wxtnormm = wxtnormm, hx = hx, mxtnormm = mxtnormm,
+                 axtnormm = axtnormm, gx = gx, zxtnormm = zxtnormm, 
+                 cx = cx, rx = rx, phix = phix, thetax = thetax,
+                 wxtnormsd = wxtnormsd, mxtnormsd = mxtnormsd, 
+                 axtnormsd = axtnormsd, zxtnormsd = zxtnormsd,
+                 nseasons = nseasons, HPcut = HPcut, pHScut = pHScut, 
+                 maY = maY, miY = miY)
 
 
   Yield_Loss <- out1$outm$YL[-1]
   Season <- out1$outm$season[-1]
 
   for(i in 1:100){ # higher values make a smoother plot
-    out1<- onesim(pHSinit = pHSinit, Kx = Kx, Ex = Ex, betax = betax, wxtnormm = wxtnormm, hx = hx, mxtnormm = mxtnormm,
-                  axtnormm = axtnormm, gx = gx, zxtnormm = zxtnormm, cx = cx, rx = rx, phix = phix, thetax = thetax,
-                  wxtnormsd = wxtnormsd, mxtnormsd = mxtnormsd, axtnormsd = axtnormsd, zxtnormsd = zxtnormsd,
-                  nseasons = nseasons, HPcut = HPcut, pHScut = pHScut, maY = maY, miY = miY )
+    out1<- onesim(pHSinit = pHSinit, Kx = Kx, Ex = Ex, betax = betax, 
+                  wxtnormm = wxtnormm, hx = hx, mxtnormm = mxtnormm,
+                  axtnormm = axtnormm, gx = gx, zxtnormm = zxtnormm, 
+                  cx = cx, rx = rx, phix = phix, thetax = thetax,
+                  wxtnormsd = wxtnormsd, mxtnormsd = mxtnormsd, 
+                  axtnormsd = axtnormsd, zxtnormsd = zxtnormsd,
+                  nseasons = nseasons, HPcut = HPcut, pHScut = pHScut, 
+                  maY = maY, miY = miY )
 
     Yield_Loss <- c(Yield_Loss,out1$outm$YL[-1])
     Season <- c(Season,out1$outm$season[-1])
@@ -48,15 +59,15 @@ multisim_plot <- function(pHSinit=0.8, Kx = 100, betax=0.02, wxtnormm=0.8, wxtno
   #----------
   data <- as.data.frame(cbind(Yield_Loss,Season))
   data=data %>%
-    mutate(SimulateCol = rep(1:(nrow(data)/nseasons), each=nseasons)) # change number 10 to nseasons 11/28/2018
+    mutate(SimulateCol = rep(1 : (nrow(data) / nseasons), each = nseasons)) # change number 10 to nseasons 11/28/2018
 
   ggplot(data, aes(Season, Yield_Loss)) +
     geom_point(alpha=0.1, color="dodgerblue") +
-    geom_line(aes(group = data$SimulateCol), color="dodgerblue", alpha=0.1) +
+    geom_line(aes(group = data$SimulateCol), color = "dodgerblue", alpha = 0.1) +
     stat_summary() +
-    stat_summary(geom="line") +
+    stat_summary(geom = "line") +
     theme_classic() +
-    scale_x_continuous(breaks=1:10) +
+    scale_x_continuous(breaks = 1 : 10) +
     xlab('Season') +
     ylab('Yield Loss (%)') +
     theme(axis.title = element_text(face = "bold",
