@@ -53,12 +53,12 @@ multisim_plot <- function(pHSinit = 0.8, Kx = 100, betax = 0.02, wxtnormm = 0.8,
                   nseasons = nseasons, HPcut = HPcut, pHScut = pHScut, 
                   maY = maY, miY = miY )
 
-    Yield_Loss <- c(Yield_Loss,out1$outm$YL[-1])
-    Season <- c(Season,out1$outm$season[-1])
+    Yield_Loss <- c(Yield_Loss, out1$outm$YL[-1])
+    Season <- c(Season, out1$outm$season[-1])
   }
   #----------
   data <- as.data.frame(cbind(Yield_Loss, Season))
-  data=data %>%
+  data <- data %>%
     mutate(SimulateCol = rep(1 : (nrow(data) / nseasons), each = nseasons)) # change number 10 to nseasons 11/28/2018
 
   ggplot(data, aes(Season, Yield_Loss)) +
