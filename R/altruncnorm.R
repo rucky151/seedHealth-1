@@ -6,10 +6,14 @@
 #' Updated 2018-09-28
 
 #' @param n the number of variables to be generated.
-#' @param a the lower limit of range, positive numeric or positive numeric vector.
-#' @param b the upper limit of range, positive numeric or positive numeric vector.
-#' @param mean the mean of underlying normal distribution prior to truncation, positive numeric or positive numeric vector.
-#' @param sd the standard deviation of underlying normal distribution prior to truncation, positive numeric or positive numeric vector.
+#' @param a the lower limit of range, positive numeric or positive numeric
+#'   vector.
+#' @param b the upper limit of range, positive numeric or positive numeric
+#'   vector.
+#' @param mean the mean of underlying normal distribution prior to truncation,
+#'   positive numeric or positive numeric vector.
+#' @param sd the standard deviation of underlying normal distribution prior to
+#'   truncation, positive numeric or positive numeric vector.
 #' @keywords misc
 #' @importFrom stats median quantile rnorm var
 #' @export
