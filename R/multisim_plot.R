@@ -13,6 +13,7 @@
 #' @importFrom  magrittr %>%
 #' @importFrom  dplyr mutate
 #' @import ggplot2
+#' @importFrom ggfan geom_fan
 #' @importFrom grDevices colorRampPalette
 #' @importFrom stats median quantile rnorm var
 #' @keywords seed health
@@ -27,7 +28,7 @@ multisim_plot <- function(pHSinit = 0.8, Kx = 100, betax = 0.02, wxtnormm = 0.8,
                           wxtnormsd = 0.3, hx = 1, mxtnormm = 1, mxtnormsd = 0.1, 
                           axtnormm = 1, axtnormsd = 0.1, rx = 0.1, zxtnormm = 1, 
                           zxtnormsd = 0.1, gx = 4, cx = 0.9, phix = 0, nseasons = 10, 
-                          nsim = 100, HPcut = 0.5, pHScut = 0.5, maY = 100, miY = 0, 
+                          nsim = 1000, HPcut = 0.5, pHScut = 0.5, maY = 100, miY = 0, 
                           thetax = 0.2, Ex = 0){
 
   out1 <- multisim(pHSinit = pHSinit, Kx = Kx, betax = betax, wxtnormm = wxtnormm, 
@@ -45,24 +46,21 @@ multisim_plot <- function(pHSinit = 0.8, Kx = 100, betax = 0.02, wxtnormm = 0.8,
   #  mutate(SimulateCol = rep(1 : (nrow(data) / nseasons), each = nseasons)) # change number 10 to nseasons 11/28/2018
 
   ggplot(data, aes(Season, Yield_Loss)) +
-    geom_point(alpha = 0.1, color = "dodgerblue") +
-    geom_line(aes(group = data$Simulation), color = "dodgerblue", alpha = 0.1) +
-    stat_summary() +
-    stat_summary(geom = "line") +
-    theme_classic() +
-    scale_x_continuous(breaks = 1 : 10) +
-    xlab('Season') +
-    ylab('Yield Loss (%)') +
-    theme(axis.title = element_text(face = "bold",
-                                    size = 20),
-          axis.text = element_text(size = 16),
-          legend.background = element_blank(),
-          #legend.box.background = element_blank(),
-          panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(),
-          panel.background = element_rect(fill = "transparent",colour = NA),
-          plot.background = element_rect(fill = "transparent",colour = NA)
-    )
+    geom_fan(intervals = (5:90)/100) +
+    scale_fill_distiller(palette="BuPu") +
+    ylim(0,100) +
+    stat_summary(fun.y = median, geom="line") +
+    stat_summary(fun.y = median, geom="point") +
+    theme_classic(base_size = 18) + scale_x_continuous(breaks = 1:10) +
+    xlab("Season") +
+    ylab("Yield Loss (%)") +
+    theme(axis.title = element_text(face = "bold", size = 20), 
+          axis.text = element_text(size = 16), 
+          legend.background = element_blank(), 
+          panel.grid.major = element_blank(), 
+          panel.grid.minor = element_blank(), 
+          panel.background = element_rect(fill = "transparent",colour = NA), 
+          plot.background = element_rect(fill = "transparent",colour = NA))
   #---------------------------------------------
   }
 
