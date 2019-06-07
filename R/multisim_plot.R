@@ -28,7 +28,7 @@ multisim_plot <- function(pHSinit = 0.8, Kx = 100, betax = 0.02, wxtnormm = 0.8,
                           wxtnormsd = 0.3, hx = 1, mxtnormm = 1, mxtnormsd = 0.1, 
                           axtnormm = 1, axtnormsd = 0.1, rx = 0.1, zxtnormm = 1, 
                           zxtnormsd = 0.1, gx = 4, cx = 0.9, phix = 0, nseasons = 10, 
-                          nsim = 1000, HPcut = 0.5, pHScut = 0.5, maY = 100, miY = 0, 
+                          nsim = 500, HPcut = 0.5, pHScut = 0.5, maY = 100, miY = 0, 
                           thetax = 0.2, Ex = 0){
 
   out1 <- multisim(pHSinit = pHSinit, Kx = Kx, betax = betax, wxtnormm = wxtnormm, 
@@ -46,7 +46,7 @@ multisim_plot <- function(pHSinit = 0.8, Kx = 100, betax = 0.02, wxtnormm = 0.8,
   #  mutate(SimulateCol = rep(1 : (nrow(data) / nseasons), each = nseasons)) # change number 10 to nseasons 11/28/2018
 
   ggplot(data, aes(Season, Yield_Loss)) +
-    geom_fan(intervals = (5:90)/100) +
+    geom_fan(intervals = (5:95)/100) +
     scale_fill_distiller(palette="BuPu") +
     ylim(0,100) +
     stat_summary(fun.y = median, geom="line") +
