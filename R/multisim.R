@@ -105,6 +105,8 @@ multisim <- function(pHSinit = 0.8, Kx = 100, betax = 0.02, wxtnormm = 0.8,
   
   #------------ added 
   data <- as.data.frame(cbind(Yield_Loss, Season))
+  data <- data %>%
+    mutate(SimulateCol = rep(1 : (nrow(data) / nseasons), each = nseasons)) 
   Yield_Loss_Season_Sim <- data
   #------------ end
   
