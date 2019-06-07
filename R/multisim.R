@@ -54,17 +54,19 @@ multisim <- function(pHSinit = 0.8, Kx = 100, betax = 0.02, wxtnormm = 0.8,
 
   #-------------------------------------------- added
   # nsim - number of simulations
-  out1 <- onesim(pHSinit = pHSinit, Kx = Kx, betax = betax, 
-                 wxtnormm = wxtnormm, wxtnormsd = wxtnormsd,
-                 hx = hx, mxtnormm = mxtnormm, mxtnormsd = mxtnormsd, 
-                 axtnormm = axtnormm, axtnormsd = axtnormsd, 
-                 rx = rx, zxtnormm = zxtnormm, zxtnormsd = zxtnormsd,
-                 gx = gx, cx = cx,  phix = phix, nseasons = nseasons,
-                 HPcut = HPcut, pHScut = pHScut, maY = maY, miY = miY, 
-                 thetax = thetax, Ex = Ex)
+  #out1 <- onesim(pHSinit = pHSinit, Kx = Kx, betax = betax, 
+ #                wxtnormm = wxtnormm, wxtnormsd = wxtnormsd,
+  #               hx = hx, mxtnormm = mxtnormm, mxtnormsd = mxtnormsd, 
+   #              axtnormm = axtnormm, axtnormsd = axtnormsd, 
+    #             rx = rx, zxtnormm = zxtnormm, zxtnormsd = zxtnormsd,
+     #            gx = gx, cx = cx,  phix = phix, nseasons = nseasons,
+      #           HPcut = HPcut, pHScut = pHScut, maY = maY, miY = miY, 
+       #          thetax = thetax, Ex = Ex)
   
-  Yield_Loss <- out1$outm$YL[-1]
-  Season <- out1$outm$season[-1]
+  #Yield_Loss <- out1$outm$YL[-1]
+  #Season <- out1$outm$season[-1]
+Yield_Loss <- NULL
+Season <- NULL
 #---------------------------------------------- end
   
   outmf <- as.data.frame(matrix(data = -999, nrow = nsim, ncol = 12, 
@@ -106,7 +108,7 @@ multisim <- function(pHSinit = 0.8, Kx = 100, betax = 0.02, wxtnormm = 0.8,
   #------------ added 
   data <- as.data.frame(cbind(Yield_Loss, Season))
   data <- data %>%
-    mutate(SimulateCol = rep(1 : (nrow(data) / nseasons), each = nseasons)) 
+    mutate(Simulation = rep(1 : (nrow(data) / nseasons), each = nseasons)) 
   Yield_Loss_Season_Sim <- data
   #------------ end
   
