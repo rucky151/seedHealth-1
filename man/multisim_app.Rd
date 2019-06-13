@@ -67,6 +67,8 @@ or numeric vector.}
 
 \item{nseasons}{the number of seasons, numeric or numeric vector.}
 
+\item{nsim}{the number of simulations, numeric or numeric vector}
+
 \item{HPcut}{the proportion healthy plant number cutoff, numeric or numeric
 vector.}
 
