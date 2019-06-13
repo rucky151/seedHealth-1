@@ -53,18 +53,7 @@ multisim <- function(pHSinit = 0.8, Kx = 100, betax = 0.02, wxtnormm = 0.8,
                      thetax = 0.2, Ex = 0) {
 
   #-------------------------------------------- added
-  # nsim - number of simulations
-  #out1 <- onesim(pHSinit = pHSinit, Kx = Kx, betax = betax, 
- #                wxtnormm = wxtnormm, wxtnormsd = wxtnormsd,
-  #               hx = hx, mxtnormm = mxtnormm, mxtnormsd = mxtnormsd, 
-   #              axtnormm = axtnormm, axtnormsd = axtnormsd, 
-    #             rx = rx, zxtnormm = zxtnormm, zxtnormsd = zxtnormsd,
-     #            gx = gx, cx = cx,  phix = phix, nseasons = nseasons,
-      #           HPcut = HPcut, pHScut = pHScut, maY = maY, miY = miY, 
-       #          thetax = thetax, Ex = Ex)
-  
-  #Yield_Loss <- out1$outm$YL[-1]
-  #Season <- out1$outm$season[-1]
+
 Yield_Loss <- NULL
 Season <- NULL
 #---------------------------------------------- end
