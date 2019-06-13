@@ -14,6 +14,7 @@
 #' @import KernSmooth
 #' @importFrom  magrittr %>%
 #' @importFrom  dplyr mutate
+#' @importFrom ggfan geom_fan
 #' @import ggplot2
 #' @importFrom utils write.csv
 #' @importFrom grDevices colorRampPalette
@@ -64,9 +65,12 @@
 #library(RColorBrewer)
 #library(KernSmooth)
 
-multisim_app <- function(pHSinit=0.8, Kx = 100, betax=0.02, wxtnormm=0.8, wxtnormsd=0.3, hx=1, mxtnormm=1,
-                            mxtnormsd=0.1, axtnormm=1, axtnormsd=0.1, rx=0.1, zxtnormm=1, zxtnormsd= 0.1, gx=4,
-                            cx=0.9, phix=0, nseasons=10, HPcut=0.5, pHScut=0.5, maY=100, miY=0, thetax=0.2,  Ex=0) {
+multisim_app <- function(pHSinit = 0.8, Kx = 100, betax = 0.02, wxtnormm = 0.8, 
+                         wxtnormsd = 0.3, hx = 1, mxtnormm = 1, mxtnormsd = 0.1, 
+                         axtnormm = 1, axtnormsd = 0.1, rx = 0.1, zxtnormm = 1, 
+                         zxtnormsd = 0.1, gx = 4, cx = 0.9, phix = 0, nseasons = 10, 
+                         nsim = 500, HPcut = 0.5, pHScut = 0.5, maY = 100, miY = 0, 
+                         thetax = 0.2, Ex = 0) {
   #require(shiny)
   shiny::shinyApp(
 
@@ -82,25 +86,48 @@ multisim_app <- function(pHSinit=0.8, Kx = 100, betax=0.02, wxtnormm=0.8, wxtnor
       sidebarPanel(width=4,
 
                    #-------------------------------
-                   numericInput("group1Par1","Initial proportion of healthy seed (1=only healthy seed used, 0=only infected seed used)",min=0,max=1,value = 0.8, step = 0.1),
-                   numericInput("group1Par2","External inoculum around farm (50=high level of external inoculum, 0=absence of external inoculum)",min=0,max=50,value = 0, step = 1),
-                   numericInput("group1Par3","Maximum seasonal transmission rate (Maximum rate of disease transmission during the growing season when there are no limitations for disease to spread)",min=0.001,max=0.2,value = 0.02, step = 0.001),
-                   numericInput("group1Par4","Weather conduciveness for disease (1=highly disease conducive weather, 0=weather completely restricts disease spread)",min=0,max=1,value = 0.8, step = 0.01),
+                   numericInput("group1Par1", "Initial proportion of healthy seed (1 = only healthy seed used, 
+                                0 = only infected seed used)", min = 0, max = 1, value = 0.8, step = 0.1),
+                   numericInput("group1Par2", "External inoculum around farm (50 = high level of external 
+                                inoculum, 0 = absence of external inoculum)", min = 0,max = 50, value = 0, step = 1),
+                   numericInput("group1Par3", "Maximum seasonal transmission rate (Maximum rate of disease 
+                                transmission during the growing season when there are no limitations for 
+                                disease to spread)", min = 0.001, max = 0.2, value = 0.02, step = 0.001),
+                   numericInput("group1Par4", "Weather conduciveness for disease (1 = highly disease conducive 
+                                weather, 0 = weather completely restricts disease spread)", min = 0, max = 1,
+                                value = 0.8, step = 0.01),
                    #-------------------------------
-                   numericInput("group1Par5","Host susceptibility (1='completely' susceptible, 0=immune)",min=0,max=1,value = 1, step = 0.01),
-                   numericInput("group1Par6","Vector/weed management conducted (1= no management of vectors/weeds, 0=vector/weed eradication)",min=0,max=1,value = 1, step = 0.01),
-                   numericInput("group1Par7","Roguing conducted during season (1=no symptomatic plants removed, 0=all symptomatic plants removed)",min=0,max=1,value = 1, step = 0.01),
+                   numericInput("group1Par5", "Host susceptibility (1 = 'completely' susceptible, 0 = immune)",
+                                min = 0, max = 1, value = 1, step = 0.01),
+                   numericInput("group1Par6", "Vector/weed management conducted (1 = no management of 
+                                vectors/weeds, 0 = vector/weed eradication)", min = 0, max = 1, value = 1, step = 0.01),
+                   numericInput("group1Par7", "Roguing conducted during season (1 = no symptomatic plants 
+                                removed, 0 = all symptomatic plants removed)", min = 0, max = 1, value = 1, step = 0.01),
 
 
-                   numericInput("group1Par8","Seed production rate in healthy plants (Number of seed produced per healthy plant)",min=0,max=20,value = 4, step = 1),
-                   numericInput("group1Par9","Plant (seed) selection (1=random selection, 0=complete selection against diseased plants)",min=0,max=1,value = 1, step = 0.1),
-                   numericInput("group1Par10","Differential seed production (1=no difference in seed production between healthy and infected plants, 0=no seed production in diseased plants)",min=0,max=1,value = 0.9, step = 0.1),
+                   numericInput("group1Par8", "Seed production rate in healthy plants (Number of seed 
+                                produced per healthy plant)", min = 0, max = 20, value = 4, step = 1),
+                   numericInput("group1Par9", "Plant (seed) selection (1 = random selection, 0 = complete 
+                                selection against diseased plants)", min = 0, max = 1, value = 1, step = 0.1),
+                   numericInput("group1Par10", "Differential seed production (1 = no difference in seed 
+                                production between healthy and infected plants, 0 = no seed production 
+                                in diseased plants)", min = 0, max = 1, value = 0.9, step = 0.1),
 
-                   numericInput("group1Par11","Reversion in infected plants expressed as the proportion of disese-free seed produced by diseased plants (1=only healthy seed produced by an infected plant, 0=only infected seed produced by an infected plant)",min=0,
-                                max=1,value =0.1, step = 0.1),
-                   numericInput("group1Par12","Certified seed usage (1= only certified seed used, 0=no certified seed used)",min=0,max=1,value = 0, step = 0.1),
-                   numericInput("group1Par13","Rate of yield decline (0=constant rate of yield decline (straight line); for 0 to 0.5,yield declines slowly as disease incidence increases (concave); for -1 to 0, yield declines rapidly as disease incidence increases (convex)) ",min=-1,max=0.55,value = 0.2, step = 0.01),
-                   downloadButton("downloadParameter",label = "Download values of Parameters")
+                   numericInput("group1Par11", "Reversion in infected plants expressed as the proportion 
+                                of disese-free seed produced by diseased plants (1 = only healthy seed 
+                                produced by an infected plant, 0 = only infected seed produced by an infected 
+                                plant)", min = 0, max = 1, value = 0.1, step = 0.1),
+                   numericInput("group1Par12", "Certified seed usage (1= only certified seed used, 
+                                0=no certified seed used)", min = 0, max = 1, value = 0, step = 0.1),
+                   numericInput("group1Par13", "Rate of yield decline (0 = constant rate of yield 
+                                decline (straight line); for 0 to 0.5,yield declines slowly as disease 
+                                incidence increases (concave); for -1 to 0, yield declines rapidly 
+                                as disease incidence increases (convex)) ", min = -1, max = 0.55, 
+                                value = 0.2, step = 0.01),
+                   numericInput("group1Par14", "Number of simulations", min = 185, max = 100000000000000, 
+                                value = 500, step = 10),
+                   
+                   downloadButton("downloadParameter", label = "Download values of Parameters")
 
       ),#sidebarPanel
       #------------------------------------------------
@@ -109,7 +136,7 @@ multisim_app <- function(pHSinit=0.8, Kx = 100, betax=0.02, wxtnormm=0.8, wxtnor
       #------------------------------------------------
       #------------------------------------------------
       #------------------------------------------------
-      mainPanel(column(width=12, height=700, class="well",
+      mainPanel(column(width = 12, height = 700, class = "well",
 
 
                        h2("A risk assessment framework for seed degeneration: Informing an integrated seed
@@ -121,17 +148,18 @@ multisim_app <- function(pHSinit=0.8, Kx = 100, betax=0.02, wxtnormm=0.8, wxtnor
 
                        #img(src="UFandCo.png",height=80,width=1000),
 
-                       h3("This dashboard provides an estimate of yield loss due to seed degeneration, as a function of multiple environmental,
-                          biological, and management parameters that influence the development of seedborne diseases. It is a general model
-                          for vegetatively-propagated crops. Changing the values of the parameters on the left will result in
-                          a new estimate of yield loss over time")
+                       h3("This dashboard provides an estimate of yield loss due to seed degeneration, 
+                          as a function of multiple environmental, biological, and management parameters 
+                          that influence the development of seedborne diseases. It is a general model
+                          for vegetatively-propagated crops. Changing the values of the parameters on 
+                          the left will result in a new estimate of yield loss over time")
                        )
                        ),
       #------------------------------------------------
       hr(),
       hr(),
-      mainPanel(column(width=12, class="well",
-                       plotOutput("figure1",height=550,width = 1000),
+      mainPanel(column(width = 12, class = "well",
+                       plotOutput("figure1", height = 550, width = 1000),
                        hr()
       ))
 
@@ -163,6 +191,7 @@ multisim_app <- function(pHSinit=0.8, Kx = 100, betax=0.02, wxtnormm=0.8, wxtnor
         Reversion_in_Infected_Plants <- input$group1Par11
         Certified_Seed_Usage <- input$group1Par12
         Rate_of_Yield_Decline <- input$group1Par13
+        Num_of_Simulation <- input$group1Par14
 
         df <- as.data.frame(cbind(
           Initial_Proportion_of_Healthy_Seed <- input$group1Par1,
@@ -177,7 +206,8 @@ multisim_app <- function(pHSinit=0.8, Kx = 100, betax=0.02, wxtnormm=0.8, wxtnor
           Differential_Seed_Production <- input$group1Par10,
           Reversion_in_Infected_Plants <- input$group1Par11,
           Certified_Seed_Usage <- input$group1Par12,
-          Rate_of_Yield_Decline <- input$group1Par13
+          Rate_of_Yield_Decline <- input$group1Par13,
+          Num_of_Simulation <- input$group1Par14
         ))
 
         return(list(SeedDegenerationData = df))
@@ -198,50 +228,22 @@ multisim_app <- function(pHSinit=0.8, Kx = 100, betax=0.02, wxtnormm=0.8, wxtnor
                                                   }
       )
 
-
-
-      #############################################################
+      #-----------------------------------------------------------
 
       output$figure1<-renderPlot({
 
-        out1 <- multisim(pHSinit = input$group1Par1, Kx = 100, Ex = input$group1Par2,
+        multisim_plot(pHSinit = input$group1Par1, Kx = 100, Ex = input$group1Par2,
                        betax = input$group1Par3, wxtnormm = input$group1Par4,
                        hx = input$group1Par5, mxtnormm = input$group1Par6,
                        axtnormm = input$group1Par7, gx = input$group1Par8,
                        zxtnormm = input$group1Par9, cx = input$group1Par10,
                        rx = input$group1Par11, phix = input$group1Par12,
-                       thetax = input$group1Par13, wxtnormsd = 0.1, 
+                       thetax = input$group1Par13, nsim = input$group1Par14, wxtnormsd = 0.1, 
                        mxtnormsd = 0.1, axtnormsd = 0.1, zxtnormsd = 0.1,
                        nseasons = 10, HPcut = 0.5, pHScut = 0.5, 
                        maY = 100, miY = 0 )
 
 
-
-        data <- out1$Yield_Loss_Season_Sim
-#----------
-#        data <- as.data.frame(cbind(Yield_Loss,Season))
-#        data=data %>%
-#          mutate(SimulateCol = rep(1:(nrow(data)/nseasons), each=nseasons)) # debug nseasons 11/29/2018 
-
-        ggplot(data, aes(Season, Yield_Loss)) +
-          geom_point(alpha=0.1, color="dodgerblue") +
-          geom_line(aes(group = data$SimulateCol), color="dodgerblue", alpha=0.1) +
-          stat_summary() +
-          stat_summary(geom="line") +
-          theme_classic() +
-          scale_x_continuous(breaks=1:10) +
-          xlab('Season') +
-          ylab('Yield Loss (%)') +
-          theme(axis.title = element_text(face = "bold",
-                                          size = 20),
-                axis.text = element_text(size = 16),
-                legend.background = element_blank(),
-                #legend.box.background = element_blank(),
-                panel.grid.major = element_blank(),
-                panel.grid.minor = element_blank(),
-                panel.background = element_rect(fill = "transparent",colour = NA),
-                plot.background = element_rect(fill = "transparent",colour = NA)
-          )
         #---------------------------------------------
       })
     }
